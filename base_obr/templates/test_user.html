@@ -1,0 +1,207 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Журнал учета телефонных обращений граждан</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" type="text/css" href="{% static 'me_style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
+</head>
+<body>
+
+	<!-- Image and text -->
+
+<nav class="navbar navbar-dark" style="background: #00499A">
+	
+	<img src="{% static 'img/LOGOTIP_PFR_3.jpg' %}" width="90" height="60" class="d-inline-block align-top" alt="">
+	<span class="navbar-brand mb-0 h1">
+		Отделение ПФ РФ по Карачаево-Черкесской Республике
+	</span>
+	<span class="navbar-text">
+    	Журнал учета телефонных обращений граждан 
+	</span>
+	
+</nav>
+<nav class="nav justify-content-end">
+  
+  <a class="nav-link" href="{% url 'exp' %}">Export CSV</a>
+  <a id="me_exit" class="nav-link active" href="{% url 'logout' %}">Выход</a>
+  
+</nav>
+
+<div class="container col-12">
+
+<!--   -->
+
+<nav class="navbar navbar-light bg-light ">
+  <form class="form-inline justify-content-center">
+  	{% for t in thema_1 %}
+    <a href="{% url 'add_t' t.id %}" id="id_thema_{{ t.id }}" class="btn btn-primary btn-sm me_cs_thema" role="button" aria-pressed="true">{{ t.name }}</a>
+    {% endfor %}
+  </form>
+</nav>
+
+<!--   -->
+</div>
+
+
+
+<div class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+  <div class="toast-header">
+    <img src="{% static 'img/false_50_50.png' %}" class="rounded mr-2" alt="">
+    <strong class="mr-auto">ОШИБКА!</strong>
+    <!-- <small>11 mins ago</small> -->
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Проверьте СНИЛС!
+  </div>
+</div>
+
+
+<!--
+
+-->	
+
+<div class="container col-12">
+<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button id="me_collapseOne" class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Таблица обращений
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+     <!-- --> 	
+
+
+
+<div class="container col-12">
+
+
+<!-- -->
+
+<!--   ################  таблица с пагинатором  #####################    -->
+
+
+	<table class="table table-hover table-sm table-responsive">
+	<thead class="thead-light">
+	<tr>
+		<th scope="col">Дата обращения</th>
+		<th scope="col">ФИО гражданина</th>
+		<th scope="col">СНИЛС</th>
+		<th scope="col">Тема обращения</th>
+		<th scope="col">Вопрос обращения</th>
+		<th scope="col">Вид консультации</th>
+		<th scope="col">Результат консультации</th>
+		<!-- <th scope="col">Продолжительность разговора</th> -->
+		<!-- <th scope="col">ФИО оператора</th>
+		<th scope="col">Код оператора</th> -->
+		<th scope="col">Удаление</th>
+	</tr>
+	</thead>
+	{% for b in bos %}
+	
+	<tr>
+		<td>{{ b.date_obr }}</td>
+		<td>{{ b.fio }}</td>
+		<td>{{ b.snils }}</td>
+		<td>{{ b.kod_thema }}</td>
+		<td>{{ b.kod_them }}</td>
+		<td>{{ b.kod_vid }}</td>
+		<td>{{ b.kod_rez }}</td>
+		<!-- <td>{{ b.kol_min }}</td> -->
+		<!-- <td>{{ b.fio_oper }}</td>
+		<td>{{ b.kod_oper }}</td> -->
+		<td><a href="/del/{{ b.id }}/">Удалить</a></td>
+	</tr>
+	
+
+	{% endfor %}
+
+	</table>
+
+	<!--  пагинатор -->
+	<div>
+		{% if page.has_previous %}
+			<a href="?page=1">начало</a>
+			
+		{% endif %}
+		{% if page.has_previous %}
+			<a href="?page={{ page.previous_page_number }}">&lt;</a>
+			&nbsp;&nbsp;|&nbsp;&nbsp;
+		{% endif %}
+		{{ page.number }} of {{ page.paginator.num_pages }}
+		{% if page.has_next %}
+			&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="?page={{ page.next_page_number }}">&gt;</a>
+		{% endif %}
+		{% if page.has_next %}
+		<a href="?page={{ page.paginator.num_pages }}">конец</a>
+		{% endif %}
+	</div>
+	<!--  пагинатор -->
+
+ 
+
+<!--   ############################################    -->
+</div>
+ </div>
+    </div>
+  </div>
+
+<!--   ############################################    -->
+
+
+<div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button id="me_collapseTwo" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Панель ввода
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+ <!--       -->
+     	
+<div class="container col-12">
+	<form method="post">
+		<div class="form-row">
+			{% csrf_token %}
+			{{ form.as_p }}
+		</div>
+		<input type="submit" value="Добавить" class="btn btn-primary">
+	</form>
+</div>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!--   ############################################    -->
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- <script src="{% static 'js/jquery-3.4.1.slim.min.js' %}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<script src="{% static 'js/jquery-3.4.1.slim.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<!-- <script src="{% static 'js/popper.min.js' %}" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
+<script src="{% static 'js/bootstrap.min.js' %}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!-- <script src="{% static 'jquery.min.js' %}"></script> -->
+<script type="text/javascript" src="{% static 'jquery.maskedinput.min.js' %}"></script>
+<script src="{% static 'js/me_scripts.js' %}"></script>
+
+</body>
+</html>

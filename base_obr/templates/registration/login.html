@@ -1,0 +1,85 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Журнал учета телефонных обращений граждан</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" type="text/css" href="{% static 'me_style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-dark" style="background: #00499A">
+	
+	<img src="{% static 'img/LOGOTIP_PFR_3.jpg' %}" width="90" height="60" class="d-inline-block align-top" alt="">
+	<span class="navbar-brand mb-0 h1">
+		Отделение ПФ РФ по Карачаево-Черкесской Республике
+	</span>
+	<span class="navbar-text">
+    	Журнал учета телефонных обращений граждан 
+	</span>
+	
+</nav>
+
+<div class="container col-4" style="margin-top: 30px">
+
+<div class="card text-center">
+  <div class="card-header">
+    Панель доступа
+  </div>
+  <div class="card-body">
+    <form method="post">
+    	
+		{% csrf_token %}
+		{{ form.as_p }}
+		
+		
+	<input type="hidden" name="next" value="{{ next }}">
+		<input type="submit" value="Войти">
+	</form>
+  </div>
+  <div class="card-footer text-muted">
+    
+  </div>
+</div>
+
+	
+		
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- <script src="{% static 'js/jquery-3.4.1.slim.min.js' %}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<script src="{% static 'js/jquery-3.4.1.slim.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<!-- <script src="{% static 'js/popper.min.js' %}" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
+<script src="{% static 'js/bootstrap.min.js' %}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!-- <script src="{% static 'jquery.min.js' %}"></script> -->
+<script type="text/javascript" src="{% static 'jquery.maskedinput.min.js' %}"></script>
+
+<script>
+	let frm = document.querySelector("form");
+	let par = frm.querySelectorAll('p');
+	let div_1 = document.createElement('div');
+	let div_2 = document.createElement('div');
+	let test = document.querySelector('input[type="submit"]')
+
+
+	div_1.setAttribute('class','form-group')
+	div_2.setAttribute('class','form-group')
+
+	for (let i = 0; i < par.length; i++) {
+		par[i].querySelector('input').setAttribute('class','form-control')
+	}
+
+	div_1.append(par[0])
+	div_2.append(par[1])
+	frm.append(div_1)
+	frm.append(div_2)
+	frm.append(test)
+	//alert(par.length);
+</script>
+
+</body>
+</html>
