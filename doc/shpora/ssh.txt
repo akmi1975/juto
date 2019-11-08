@@ -1,0 +1,8 @@
+scp miha@10.8.0.25:/home/miha/ve/arc/* arc
+scp temp/* miha@10.8.0.25:/home/miha/ve/probe_01
+
+
+zip arc/probe_01_091119_01 probe_01/* -r
+sudo service apache2 stop
+
+-e use_proxy=yes -e http_proxy=10.8.0.95:9980
