@@ -21,6 +21,9 @@ from django.core.paginator import Paginator
 
 import csv, datetime
 
+user_adm = ['miha', 'DZHARAMAZA', 'GERGALVIK', 'BOTBOTKAI']
+
+
 def index(request):
 	#return HttpResponse("test")
 	return render(request, 'test_index.html')
@@ -36,7 +39,7 @@ def exp_csv(request):
 
 	user_csv = request.user.username
 
-	if user_csv == 'miha' or user_csv == 'DZHARAMAZA' or user_csv == 'GERGALVIK' or user_csv == 'BOTBOTKAI':
+	if user_csv in user_adm:
 		bos = base_obr.objects.all()
 	else:
 		bos = base_obr.objects.filter(author = request.user.id)
@@ -90,7 +93,7 @@ class b_o_View(AuthenticatedMixin,CreateView):
 		#print(self.request.user.username)
 		bos = None
 		user_m = self.request.user.username
-		if user_m == 'miha' or user_m == 'DZHARAMAZA' or user_m == 'GERGALVIK' or user_m == 'BOTBOTKAI':
+		if user_m in user_adm:
 			bos = base_obr.objects.all()
 			#bos = base_obr.objects.filter(date_obr=datetime.datetime.date(datetime.datetime.now()))
 		else:
