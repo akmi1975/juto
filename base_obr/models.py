@@ -21,6 +21,9 @@ class thema_obr(models.Model):
 
 	def __str__(self):
 		return self.kod + ' ' + self.name
+	class Meta:
+		verbose_name = 'Тема обращения'
+		verbose_name_plural = 'Темы обращений'
 
 class them_obr(models.Model):
 	kod_thema = models.ForeignKey(thema_obr, null=True, on_delete=models.PROTECT)
@@ -29,6 +32,9 @@ class them_obr(models.Model):
 
 	def __str__(self):
 		return self.kod + ' ' + self.name
+	class Meta:
+		verbose_name = 'Подтема обращения'
+		verbose_name_plural = 'Подтемы обращений'
 
 class vid_kons(models.Model):
 	kod = models.CharField(max_length=2)
@@ -36,6 +42,10 @@ class vid_kons(models.Model):
 
 	def __str__(self):
 		return self.kod + " " + self.name
+	
+	class Meta:
+		verbose_name_plural = 'Виды консультаций'
+		verbose_name = 'Вид консультации'
 
 class rez_kons(models.Model):
 	kod = models.CharField(max_length=2)
@@ -44,12 +54,19 @@ class rez_kons(models.Model):
 	def __str__(self):
 		return self.kod + " " + self.name
 
+	class Meta:
+                verbose_name_plural = 'Результаты консультирования'
+                verbose_name = 'Результат консультирования'
+
 class kod_oper(models.Model):
 	kod = models.CharField(max_length=2)
 	name = models.CharField(max_length=150)
 
 	def __str__(self):
 		return self.kod + " " + self.name
+	class Meta:
+                verbose_name_plural = 'Коды операторов'
+                verbose_name = 'Код оператора'
 
 class kod_rayon(models.Model):
 	kod = models.CharField(max_length=2)
@@ -65,7 +82,7 @@ class base_obr(models.Model):
 	date_obr = models.DateField(auto_now_add=True, null=True, verbose_name='Дата обращения')
 	fio = models.CharField(max_length=150, null=True, verbose_name='ФИО гражданина')
 	snils = models.CharField(max_length=14, null=True, verbose_name='СНИЛС')
-	kod_word = models.BooleanField(null=True, verbose_name='Ключевое слово')
+	kod_word = models.BooleanField(null=True, verbose_name='Кодовое слово')
 	#kod_rayon = models.ForeignKey(kod_rayon, null=True, on_delete=models.PROTECT) 
 	kod_thema = models.ForeignKey(thema_obr, null=True, on_delete=models.PROTECT)
 	kod_them = models.ForeignKey(them_obr, null=True, on_delete=models.PROTECT, verbose_name='Вопрос обращения')
@@ -78,4 +95,6 @@ class base_obr(models.Model):
 	class Meta:
 		#ordering = ['-date_obr']
 		ordering = ['-id']
+		verbose_name = 'База обращений'
+		verbose_name_plural = 'База обращений'
 

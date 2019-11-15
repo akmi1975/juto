@@ -9,6 +9,7 @@ class ta_o_Admin(admin.ModelAdmin):
 
 class t_o_Admin(admin.ModelAdmin):
 	list_display = ('kod_thema', 'kod', 'name')
+	list_filter = ('kod_thema',)
 
 class v_k_Admin(admin.ModelAdmin):
 	list_display = ('kod', 'name')

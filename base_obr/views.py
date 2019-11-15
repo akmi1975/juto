@@ -34,7 +34,9 @@ def del_stka(request, base_obr_id):
 def exp_csv(request):
 	#print(request.user.groups.all()[0].id) request.user.groups.all()[0]
 
-	if request.user.username == 'miha':
+	user_csv = request.user.username
+
+	if user_csv == 'miha' or user_csv == 'DZHARAMAZA' or user_csv == 'GERGALVIK' or user_csv == 'BOTBOTKAI':
 		bos = base_obr.objects.all()
 	else:
 		bos = base_obr.objects.filter(author = request.user.id)
@@ -73,7 +75,7 @@ class b_o_View(AuthenticatedMixin,CreateView):
 		initial['fio_oper'] = self.request.user.last_name + ' ' + self.request.user.first_name
 		initial['kod_oper'] = 2
 		initial['kod_word'] = False
-		initial['snils'] = '000-000-000 00'
+		#initial['snils'] = '000-000-000 00'
 		initial['kol_min'] = 1
 		try:
 			initial['kod_thema'] = self.kwargs['thema']
@@ -87,7 +89,8 @@ class b_o_View(AuthenticatedMixin,CreateView):
 		context = super().get_context_data(**kwargs)
 		#print(self.request.user.username)
 		bos = None
-		if self.request.user.username == 'miha':
+		user_m = self.request.user.username
+		if user_m == 'miha' or user_m == 'DZHARAMAZA' or user_m == 'GERGALVIK' or user_m == 'BOTBOTKAI':
 			bos = base_obr.objects.all()
 			#bos = base_obr.objects.filter(date_obr=datetime.datetime.date(datetime.datetime.now()))
 		else:
