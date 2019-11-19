@@ -1,0 +1,4 @@
+
+Django: How to filter Users that belong to a specific group
+(Django: как фильтровать пользователей, принадлежащих к определенной группе)
+https://stackoverflow.com/questions/1810891/django-how-to-filter-users-that-belong-to-a-specific-group
