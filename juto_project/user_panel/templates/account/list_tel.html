@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}test_panel{% endblock %}
+{% block content %}
+	<h1>test_panek</h1>
+	<p>Welcome to your dashboard.</p>
+	<form method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+		
+
+	</form>
+		}
+
+{% endblock %}
