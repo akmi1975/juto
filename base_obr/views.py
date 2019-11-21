@@ -18,6 +18,7 @@ from django.core.paginator import Paginator
 #from django.utils.decorators import method_decorator
 #from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.models import User
 
 import csv, datetime
 
@@ -48,11 +49,18 @@ def exp_csv(request):
 	response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
 
 	writer = csv.writer(response, delimiter=';')
-	writer.writerow(['Дата', 'ФИО', 'СНИЛС', 'Тема', 'Вопрос', 'Вид','Результат', 'Время','Пользователь', 'Код оператора', 'Ключевое слово'])
+	writer.writerow(['Дата', 'ФИО', 'СНИЛС', 'Тема', 'Вопрос', 'Вид','Результат', 'Время','Пользователь', 'Код оператора', 'Ключевое слово', 'Управление'])
 	#b_o = []	
 	for b in bos:
 		b_o = str(b.date_obr).split('-')
-		writer.writerow([str(b_o[2] + '.' + b_o[1] + '.' + b_o[0]), b.fio, b.snils, b.kod_thema, b.kod_them, b.kod_vid, b.kod_rez, b.kol_min, b.fio_oper, b.kod_oper, b.kod_word])		
+		# ===========================================================
+		m_fio = b.fio_oper.split()
+		l_name = m_fio[0]
+		f_name = ' '.join(m_fio[1:])
+		ray_u = User.objects.get(last_name=l_name, first_name=f_name)
+		ray_ray = ray_u.groups.all()[0].name
+		# ===========================================================
+		writer.writerow([str(b_o[2] + '.' + b_o[1] + '.' + b_o[0]), b.fio, b.snils, b.kod_thema, b.kod_them, b.kod_vid, b.kod_rez, b.kol_min, b.fio_oper, b.kod_oper, b.kod_word, ray_ray])		
 	return response
 # ----------------- export csv --------------------------------
 
