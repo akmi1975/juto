@@ -2,3 +2,11 @@
 Django: How to filter Users that belong to a specific group
 (Django: как фильтровать пользователей, принадлежащих к определенной группе)
 https://stackoverflow.com/questions/1810891/django-how-to-filter-users-that-belong-to-a-specific-group
+
+
+example:
+	u = User.objects.get(pk=200)
+	u.groups.all()[0].id
+
+	ray_u = User.objects.get(last_name=l_name, first_name=f_name)
+	ray_ray = ray_u.groups.all()[0].name
